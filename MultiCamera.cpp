@@ -1,3 +1,8 @@
+// MultiCamera.cpp
+// Multi-Threading more than two USB Cameras
+// connected to a NVIDIA Jetson Nano Developer Kit using OpenCV
+// Drivers for the camera and OpenCV
+
 #include "CameraStreamer.hpp"
 #include "opencv2\highgui.hpp"
  

@@ -1,3 +1,8 @@
+// MultiCameraSingleThreaded.cpp
+// Runnning more than one USB Camera on Single Thread
+// connected to a NVIDIA Jetson Nano Developer Kit using OpenCV
+// Drivers for the camera and OpenCV
+
 #include <opencv2\videoio.hpp>
 #include <opencv2\highgui.hpp>
  

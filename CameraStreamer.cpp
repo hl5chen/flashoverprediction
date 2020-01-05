@@ -1,3 +1,9 @@
+// CameraStreamer.cpp
+// Multi-Threading more than two USB Cameras
+// connected to a NVIDIA Jetson Nano Developer Kit using OpenCV
+// Drivers for the camera and OpenCV
+
+
 #include "CameraStreamer.hpp"
  
 CameraStreamer::CameraStreamer(vector<string> stream_source)
@@ -26,7 +32,8 @@ stopMultiCapture();
 void CameraStreamer::captureFrame(int index)
 {
 VideoCapture *capture = camera_capture[index];
-while (true)
+while (t
+nbsarue)
 {
 Mat frame;
 //Grab frame from camera capture
