@@ -27,23 +27,34 @@ int main()
     int flip_method = 0 ;
 
     std::string pipeline = gstreamer_pipeline(capture_width,
-	                                            capture_height,
-	                                            display_width,
-	                                            display_height,
-	                                            framerate,
-	                                            flip_method);
+	capture_height,
+	display_width,
+	display_height,
+	framerate,
+	flip_method);
     std::cout << "Using pipeline: \n\t" << pipeline << "\n";
  
+    //initialize the video streams and allow them to warmup
+    /*print("[INFO] starting cameras...")
+        webcam = VideoStream(src=0).start()
+        picam = VideoStream(usePiCamera=True).start()
+        time.sleep(2.0)
+
+        Imutils (Python) vs. Gstreamer(Jetson Hacks) 
+    */
+
     cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
+
     if(!cap.isOpened()) {
-	std::cout<<"Failed to open camera."<<std::endl;
-	return (-1);
+        std::cout<<"Failed to open camera."<<std::endl;
+        return (-1);
     }
 
     cv::namedWindow("CSI Camera", cv::WINDOW_AUTOSIZE);
     cv::Mat img;
 
     std::cout << "Hit ESC to exit" << "\n" ;
+    
     while(true)
     {
     	if (!cap.read(img)) {
