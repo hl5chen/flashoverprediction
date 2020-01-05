@@ -13,10 +13,8 @@ void main()
 {
     //The number of connected USB camera(s)
     const uint CAM_NUM = 3;
- 
-    //This will hold the VideoCapture objects
     VideoCapture camCaptures[CAM_NUM];
- 
+    
     //This will hold the resulting frames from each camera
     Mat camFrames[CAM_NUM];
  
@@ -26,10 +24,7 @@ void main()
     //Initialization of VideoCaptures
     for (int i = 0; i < CAM_NUM; i++)
     {
-        //Init label for highgui window name
         labels[i] = "Camera " + to_string(i);
- 
-        //Opening camera capture stream
         camCaptures[i].open(i);
     }
  
@@ -39,8 +34,6 @@ void main()
         {
             //capturing frame-by-frame from each capture
             camCaptures[i] >> camFrames[i];
- 
-            //showing the resulting frame using highgui
             imshow(labels[i], camFrames[i]);
         }
     }
