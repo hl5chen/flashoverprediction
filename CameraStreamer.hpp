@@ -17,31 +17,29 @@ using namespace concurrency;
  
 class CameraStreamer{
 public:
-//this holds camera stream urls
-vector<string> camera_source;
-//this holds usb camera indices
-vector<int> camera_index;
-//this holds OpenCV VideoCapture pointers
-vector<VideoCapture*> camera_capture;
-//this holds queue(s) which hold images from each camera
-vector<concurrent_queue<Mat>*> frame_queue;
-//this holds thread(s) which run the camera capture process
-vector<thread*> camera_thread;
- 
-//Constructor for IP Camera capture
-CameraStreamer(vector<string> source);
-//Constructor for USB Camera capture
-CameraStreamer(vector<int> index);
-//Destructor for releasing resource(s)
-~CameraStreamer();
- 
+
+    vector<string> camera_source; //holds camera stream urls
+    vector<int> camera_index; //holds usb camera indices
+    vector<VideoCapture*> camera_capture; //holds OpenCV VideoCapture pointers
+    vector<concurrent_queue<Mat>*> frame_queue; //holds queue(s) which hold images from each camera
+    vector<thread*> camera_thread; //holds thread(s) which run the camera capture process
+    
+    //Constructor for IP Camera capture
+    CameraStreamer(vector<string> source);
+    //Constructor for USB Camera capture
+    CameraStreamer(vector<int> index);
+
+    //Destructor for releasing resource(s)
+    ~CameraStreamer();
+    
+
 private:
-bool isUSBCamera;
-int camera_count;
-//initialize and start the camera capturing process(es)
-void startMultiCapture();
-//release all camera capture resource(s)
-void stopMultiCapture();
-//main camera capturing process which will be done by the thread(s)
-void captureFrame(int index);
+
+    bool isUSBCamera;
+    int camera_count;
+    //camera capturing process(es)
+    void startMultiCapture();
+    void stopMultiCapture();
+    //main camera capturing process which will be done by the thread(s)
+    void captureFrame(int index);
 };

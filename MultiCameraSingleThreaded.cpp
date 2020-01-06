@@ -15,15 +15,11 @@ void main()
     const uint CAM_NUM = 3;
     VideoCapture camCaptures[CAM_NUM];
     
-    //This will hold the resulting frames from each camera
-    Mat camFrames[CAM_NUM];
- 
-    //This will be used for highgui window name
-    string labels[CAM_NUM];
+    Mat camFrames[CAM_NUM]; //hold the resulting frames from each camera
+    string labels[CAM_NUM]; //highgui window name
  
     //Initialization of VideoCaptures
-    for (int i = 0; i < CAM_NUM; i++)
-    {
+    for (int i = 0; i < CAM_NUM; i++){
         labels[i] = "Camera " + to_string(i);
         camCaptures[i].open(i);
     }
