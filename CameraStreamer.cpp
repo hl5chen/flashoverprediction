@@ -6,6 +6,8 @@
 
 #include "CameraStreamer.hpp"
  
+
+ /*
 CameraStreamer::CameraStreamer(vector<string> stream_source){
         camera_source = stream_source;
         camera_count = camera_source.size();
@@ -13,6 +15,7 @@ CameraStreamer::CameraStreamer(vector<string> stream_source){
         
         startMultiCapture();
 }
+*/
 
 CameraStreamer::CameraStreamer(vector<int> capture_index)
 {
@@ -31,7 +34,7 @@ CameraStreamer::~CameraStreamer()
 void CameraStreamer::captureFrame(int index)
 {
     VideoCapture *capture = camera_capture[index];
-    
+
     while (true)
     {
         Mat frame;
@@ -50,9 +53,12 @@ void CameraStreamer::startMultiCapture()
     {
         //Make VideoCapture instance
         if (!isUSBCamera){
+            /*
             string url = camera_source[i];
             capture = new VideoCapture(url);
             cout << "Camera Setup: " << url << endl;
+            */
+
         }
         else{
             int idx = camera_index[i];
@@ -60,20 +66,11 @@ void CameraStreamer::startMultiCapture()
             cout << "Camera Setup: " << to_string(idx) << endl;
         }
     
-        //Put VideoCapture to the vector
-        camera_capture.push_back(capture);
-        
-        //Make thread instance
-        t = new thread(&CameraStreamer::captureFrame, this, i);
-        
-        //Put thread to the vector
-        camera_thread.push_back(t);
-        
-        //Make a queue instance
-        q = new concurrent_queue<Mat>;
-        
-        //Put queue to the vector
-        frame_queue.push_back(q);
+        camera_capture.push_back(capture); //Put VideoCapture to the vector
+        t = new thread(&CameraStreamer::captureFrame, this, i); //Make thread instance
+        camera_thread.push_back(t); //Put thread to the vector
+        q = new concurrent_queue<Mat>; //Make a queue instance
+        frame_queue.push_back(q); //Put queue to the vector
     }
 }
     

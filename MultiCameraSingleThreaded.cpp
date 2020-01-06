@@ -12,7 +12,7 @@ using namespace std;
 void main()
 {
     //The number of connected USB camera(s)
-    const uint CAM_NUM = 3;
+    const uint CAM_NUM = 2;
     VideoCapture camCaptures[CAM_NUM];
     
     Mat camFrames[CAM_NUM]; //hold the resulting frames from each camera
