@@ -25,9 +25,55 @@ void main()
     };
     */
 
+
+   //CSI Camera Initialization
+/*
+    int capture_width = 1280 ;
+    int capture_height = 720 ;
+    int display_width = 1280 ;
+    int display_height = 720 ;
+    int framerate = 60 ;
+    int flip_method = 0 ;
+
+    std::string pipeline = gstreamer_pipeline(capture_width,
+	capture_height,
+	display_width,
+	display_height,
+	framerate,
+	flip_method);
+
+    cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER);
+
+    if(!cap.isOpened()) {
+        std::cout<<"Failed to open camera."<<std::endl;
+        return (-1);
+    }
+
+    cv::namedWindow("CSI Camera", cv::WINDOW_AUTOSIZE);
+    cv::Mat img;
+
+    std::cout << "Hit ESC to exit" << "\n" ;
+    
+    while(waitKey(20) != 27)
+    {
+    	if (!cap.read(img)) 
+        {
+            std::cout<<"Capture read error"<<std::endl;
+            break;
+	    }
+	
+        cv::imshow("CSI Camera",img);
+    }
+
+    cap.release();
+    cv::destroyAllWindows() ;
+    return 0;
+
+*/
+   //USB Camera 
+
     vector<int> capture_index = { 0, 1 }; //USB Camera indices
     vector<string> label; //Highgui window titles
-
 
     for (int i = 0; i < capture_index.size(); i++)
     {
