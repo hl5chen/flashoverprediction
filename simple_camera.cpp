@@ -116,7 +116,31 @@ int main()
     TickMeter tm;
 
     std::cout << "Hit ESC to exit" << "\n" ;
-    
+
+
+ do
+    {
+        tm.stop();
+        tm.start();
+        cap.read(img);
+
+        if( img.empty() )
+        {
+            break;
+        }
+
+        if(tm.getCounter() > 0)
+        {
+            cv::putText(img, cv::format("Average FPS=%d",cvRound( tm.getCounter()/tm.getTimeSec())), cv::Point(30, 30), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0,0,255));
+        }
+
+        cv::imshow("Video Capture Test", img);
+
+        c = cv::waitKey(1);
+    }
+    while(c != 27);
+
+   /* 
     while(true)
     {
         tm.stop();
@@ -128,7 +152,7 @@ int main()
 	
         if(tm.getCounter() > 0)
         {
-            cv::putText(frame, cv::format("Average FPS=%d",cvRound( tm.getCounter()/tm.getTimeSec())), cv::Point(30, 30), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0,0,255));
+            cv::putText(img, cv::format("Average FPS=%d",cvRound( tm.getCounter()/tm.getTimeSec())), cv::Point(30, 30), cv::FONT_HERSHEY_SIMPLEX, 0.8, cv::Scalar(0,0,255));
         }
 
         cv::imshow("CSI Camera",img);
@@ -136,6 +160,7 @@ int main()
 
         if (keycode == 27) break ;
     }
+    */
 
     cap.release();
     cv::destroyAllWindows() ;
