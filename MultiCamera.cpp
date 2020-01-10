@@ -70,6 +70,7 @@ void main()
     return 0;
 
 */
+/*
    //USB Camera 
 
     vector<int> capture_index = { 0, 1 }; //USB Camera indices
@@ -98,23 +99,57 @@ void main()
             }
         }
     }
+*/
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+    //CSI and USB 
 
+    int capture_width = 1280 ;
+    int capture_height = 720 ;
+    int display_width = 1280 ;
+    int display_height = 720 ;
+    int framerate = 60 ;
+    int flip_method = 0 ;
 
-/*
+    std::string pipeline = gstreamer_pipeline(capture_width,
+	capture_height,
+	display_width,
+	display_height,
+	framerate,
+	flip_method);
 
-    for (int i = 0; i < capture_source.size(); i++)
+    vector<int> capture_index = { 0, 1 }; //USB Camera indices
+    vector<string> label; //Highgui window titles
+
+    for (int i = 0; i < capture_index.size(); i++)
     {
         string title = "CCTV " + to_string(i);
         label.push_back(title);
     }
 
     //Make an instance of CameraStreamer
-    CameraStreamer cam(capture_source);
+    CameraStreamer cam(0); //CameraStreamer cam(capture_index);
+    cv::VideoCapture cap(pipeline, cv::CAP_GSTREAMER); //CSI 
 
-    while (waitKey(20) != 27)
+    if(!cap.isOpened()) {
+        std::cout<<"Failed to open camera."<<std::endl;
+        return (-1);
+    }
+
+    cv::namedWindow("CSI Camera", cv::WINDOW_AUTOSIZE);
+    cv::Mat img;
+
+    std::cout << "Hit ESC to exit" << "\n" ;
+    
+    while(waitKey(20) != 27)
     {
-        //Retrieve frames from each camera capture thread
-        for (int i = 0; i < capture_source.size(); i++)
+    	if (!cap.read(img)) 
+        {
+            std::cout<<"Capture read error"<<std::endl;
+            break;
+	    }
+        cv::imshow("CSI Camera",img);
+
+        for (int i = 0; i < capture_index.size(); i++)
         {
             Mat frame;
             //Pop frame from queue and check if the frame is valid
@@ -126,6 +161,8 @@ void main()
         }
     }
 
-*/
+    cap.release();
+    cv::destroyAllWindows() ;
+    return 0;
 
 }
