@@ -1,0 +1,3 @@
+/home/richard/Desktop/USBCamera/CMakeFiles/rebuild_cache.dir
+/home/richard/Desktop/USBCamera/CMakeFiles/USBCamera.dir
+/home/richard/Desktop/USBCamera/CMakeFiles/edit_cache.dir
